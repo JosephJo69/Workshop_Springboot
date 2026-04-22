@@ -2,6 +2,7 @@ package com.ejemplo.demo.domain.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "categorias")
@@ -18,6 +19,7 @@ public class Categoria {
 
    
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Producto> productos;
 
    
