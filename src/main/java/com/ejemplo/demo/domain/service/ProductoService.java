@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
+
 @Service
 public class ProductoService {
 
@@ -45,7 +46,13 @@ public class ProductoService {
             cat.getId()
         );
     }
-
+    
+    public Producto buscarPorId(Long id) {
+        // .findById es un método de JpaRepository que devuelve un Optional
+        // .orElseThrow lanza la excepción que configuramos para el 404
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No existe el producto con ID: " + id));
+    }
     @Transactional(readOnly = true)
     public List<Producto> listarTodos() {
         return productoRepository.findAll();

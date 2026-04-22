@@ -34,7 +34,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> manejarErrorGeneral(Exception ex) {
-        ex.printStackTrace(); // <--- AGREGA ESTO SOLO PARA DEPURAR
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("error", "Error interno", "mensaje", ex.getMessage()));
     }

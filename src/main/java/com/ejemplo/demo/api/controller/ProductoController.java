@@ -33,6 +33,12 @@ public class ProductoController {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductoDTO> obtenerPorId(@PathVariable Long id) {
+        Producto p = service.buscarPorId(id); 
+        return ResponseEntity.ok(mapToDTO(p));
+    }
 
     private ProductoDTO mapToDTO(Producto p) {
         return new ProductoDTO(p.getId(), p.getSku(), p.getNombre(), p.getPrecio(), p.getCategoria().getId());

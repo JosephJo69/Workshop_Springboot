@@ -13,7 +13,7 @@ public class Producto {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String sku; // Código único de producto
+    private String sku; 
 
     @Column(nullable = false)
     private String nombre;
