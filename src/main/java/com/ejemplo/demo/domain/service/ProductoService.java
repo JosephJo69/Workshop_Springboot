@@ -23,19 +23,21 @@ public class ProductoService {
 
     @Transactional
     public ProductoDTO crear(Producto producto, Long categoriaId) {
-        Categoria categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada con ID: " + categoriaId));
         
-        producto.setCategoria(categoria);
+        Categoria cat = categoriaRepository.findById(categoriaId)
+                .orElseThrow(() -> new EntityNotFoundException("No existe la categoría con ID: " + categoriaId));
+        
+        
+        producto.setCategoria(cat);
         Producto guardado = productoRepository.save(producto);
         
-        // Retornamos el DTO manualmente aquí para evitar que el Controller toque la Entidad
+        
         return new ProductoDTO(
-            guardado.getId(), 
-            guardado.getSku(), 
-            guardado.getNombre(), 
-            guardado.getPrecio(), 
-            categoria.getId()
+            guardado.getId(),
+            guardado.getSku(),
+            guardado.getNombre(),
+            guardado.getPrecio(),
+            cat.getId()
         );
     }
 
