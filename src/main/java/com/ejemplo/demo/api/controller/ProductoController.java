@@ -23,12 +23,8 @@ public class ProductoController {
 
     @PostMapping
     public ResponseEntity<ProductoDTO> crear(@Valid @RequestBody ProductoDTO dto) {
-        Producto p = new Producto();
-        p.setSku(dto.sku());
-        p.setNombre(dto.nombre());
-        p.setPrecio(dto.precio());
-        
-        return new ResponseEntity<>(service.crear(p, dto.categoriaId()), HttpStatus.CREATED);
+       
+        return new ResponseEntity<>(service.crear(dto), HttpStatus.CREATED);
     }
 
     @GetMapping

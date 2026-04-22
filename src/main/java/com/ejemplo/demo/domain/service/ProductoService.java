@@ -22,21 +22,26 @@ public class ProductoService {
     }
 
     @Transactional
-    public ProductoDTO crear(Producto producto, Long categoriaId) {
+    public ProductoDTO crear(ProductoDTO dto) {
+      
+        Categoria cat = categoriaRepository.findById(dto.categoriaId())
+                .orElseThrow(() -> new EntityNotFoundException("No existe la categoría " + dto.categoriaId()));
         
-        Categoria cat = categoriaRepository.findById(categoriaId)
-                .orElseThrow(() -> new EntityNotFoundException("No existe la categoría con ID: " + categoriaId));
+     
+        Producto nuevoProducto = new Producto();
+        nuevoProducto.setSku(dto.sku());      
+        nuevoProducto.setNombre(dto.nombre()); 
+        nuevoProducto.setPrecio(dto.precio()); 
+        nuevoProducto.setCategoria(cat);
         
-        
-        producto.setCategoria(cat);
-        Producto guardado = productoRepository.save(producto);
-        
+       
+        Producto guardado = productoRepository.save(nuevoProducto);
         
         return new ProductoDTO(
-            guardado.getId(),
-            guardado.getSku(),
-            guardado.getNombre(),
-            guardado.getPrecio(),
+            guardado.getId(), 
+            guardado.getSku(), 
+            guardado.getNombre(), 
+            guardado.getPrecio(), 
             cat.getId()
         );
     }

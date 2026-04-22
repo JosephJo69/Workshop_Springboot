@@ -33,14 +33,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> manejarGenerica(Exception ex) {
-        ErrorResponse body = new ErrorResponse(
-                "INTERNAL_ERROR",
-                "Ocurrio un error interno",
-                Instant.now(),
-                Map.of()
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+    public ResponseEntity<Map<String, String>> manejarErrorGeneral(Exception ex) {
+        ex.printStackTrace(); // <--- AGREGA ESTO SOLO PARA DEPURAR
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error interno", "mensaje", ex.getMessage()));
     }
 
     /*
