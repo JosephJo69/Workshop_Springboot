@@ -16,11 +16,11 @@ public class Categoria {
 
     private String descripcion;
 
-    // Relación: Una categoría tiene muchos productos
+   
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Producto> productos;
 
-    // Constructores, Getters y Setters
+   
     public Categoria() {}
 
     public Long getId() { return id; }

@@ -14,7 +14,7 @@ public class PrestamoController {
 
     private final PrestamoService prestamoService;
 
-    // Inyección por constructor
+   
     public PrestamoController(PrestamoService prestamoService) {
         this.prestamoService = prestamoService;
     }
